@@ -3,7 +3,7 @@ const Users = require("./users-model");
 const restricted = require("../auth/restricted-mw");
 
 router.get("/", restricted, (req, res) => {
-  Users.find()
+  Users.findBy({ department: req.jwt.department })
     .then((users) => {
       res.status(200).json({ users });
     })
