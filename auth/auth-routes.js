@@ -23,7 +23,7 @@ router.post("/register", (req, res) => {
       res.status(500).json({ error: err.message });
     });
 
-  const rounds = process.env.HASH_ROUNDS || 7;
+  const rounds = parseInt(process.env.HASH_ROUNDS) || 7;
   const hash = bcrypt.hashSync(password, rounds);
 
   Users.add({ username, password: hash, department })
