@@ -4,7 +4,8 @@ module.exports = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (token) {
-    jwt.verify(token, "secrety mcsecretface", (error, decodedToken) => {
+    const secret = process.env.JWT_SECRET || "secrety mcsecretface";
+    jwt.verify(token, secret, (error, decodedToken) => {
       if (error) {
         res.status(401).json({ message: "Token expired or modified" });
       } else {
